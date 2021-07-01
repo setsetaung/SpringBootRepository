@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Save Book</title>
+    <style>
+       body {
+         background-image: url('/images/bgbook.jpg');
+         background-repeat: no-repeat;
+         background-attachment: fixed;  
+         background-size: cover;
+       }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+    <h3 style="color:red;">Book Directory</h3>
+    <hr>
+    <p class="h4 mb-4" style="color:red;">Save Book</p>
+    <form action="#" th:action="@{/books/save}"
+          th:object="${books}" method="POST">
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id}" />
+
+        <input type="text" th:field="*{book_name}"
+               class="form-control mb-4 col-4" placeholder="Book name">
+
+        <input type="text" th:field="*{book_subname}"
+               class="form-control mb-4 col-4" placeholder="Book subname">
+
+        <input type="text" th:field="*{serial_name}"
+               class="form-control mb-4 col-4" placeholder="Serial Name">
+
+       <textarea rows="4" cols="50" class="form-control mb-4 col-4" placeholder="Description" th:field="*{description}"></textarea>
+
+        <input type="text" th:field="*{isbn}"
+               class="form-control mb-4 col-4" placeholder="ISBN">
+              
+       
+       <select name="authorId" class="form-control mb-4 col-4" >
+              <!-- <option value="" disabled selected hidden>Choose Author Name</option> -->
+               <option th:each="author: ${authors}" th:value="${author.id}" th:text="${author.author_name}" th:selected="${author.author_name==books.author.author_name}"/>
+       </select>
+
+       <select name="publisherId" class="form-control mb-4 col-4" >
+              <!-- <option value="" disabled selected hidden>Choose Publisher Name</option> -->
+               <option th:each="publisher: ${publishers}"  th:value="${publisher.id}" th:text="${publisher.publisher_name}" th:selected="${publisher.publisher_name==books.publisher.publisher_name}" />
+       </select>  
+
+       
+       <div>
+       <button type="submit" class="btn btn-info col-2">Save</button>
+       </div>
+    </form>
+    <hr>
+</div>
+</body>
+</html>
+

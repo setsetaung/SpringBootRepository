@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Publisher</title>
+    <style>
+        body {
+          background-image: url('/images/bgbook.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+     </style>
+  
+</head>
+
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+
+    <h3 style="color:red;">Publisher Directory</h3>
+    <hr>
+
+    <p class="h4 mb-4" style="color:red;">Save Publisher</p>
+
+    <form action="#" th:action="@{/publisher/save}"
+          th:object="${publishers}" method="POST">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <input type="text" th:field="*{publisher_name}"
+               class="form-control mb-4 col-4" placeholder="Publisher name">
+
+        <textarea rows="4" cols="50" class="form-control mb-4 col-4" placeholder="Description" th:field="*{description}"></textarea>
+
+       <div><button type="submit" class="btn btn-info col-2">Save</button></div> 
+    </form>
+    <hr>
+</div>
+</body>
+
+</html>
+
