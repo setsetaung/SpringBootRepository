@@ -23,35 +23,50 @@
     <hr>
     <p class="h4 mb-4" style="color:red;">Save Book</p>
     <form action="#" th:action="@{/books/save}"
-          th:object="${books}" method="POST">
+          th:object="${book}" method="POST">
         <!-- Add hidden form field to handle update -->
+        <div>
         <input type="hidden" th:field="*{id}" />
-
+        </div>
+        <div>
         <input type="text" th:field="*{book_name}"
                class="form-control mb-4 col-4" placeholder="Book name">
+               <!-- <p style="color:red;" th:if="${#fields.hasErrors('book_name')}" th:errorclass="error" th:errors="*{book_name}"></p> -->
+        </div>
 
+        <div>
         <input type="text" th:field="*{book_subname}"
                class="form-control mb-4 col-4" placeholder="Book subname">
-
+       <div>
         <input type="text" th:field="*{serial_name}"
                class="form-control mb-4 col-4" placeholder="Serial Name">
-
+       <!-- <p style="color:red;" th:if="${#fields.hasErrors('serial_name')}" th:errorclass="error" th:errors="*{serial_name}"></p> -->
+       </div>
+       <div>
        <textarea rows="4" cols="50" class="form-control mb-4 col-4" placeholder="Description" th:field="*{description}"></textarea>
-
+       </div>
+       <div>
         <input type="text" th:field="*{isbn}"
                class="form-control mb-4 col-4" placeholder="ISBN">
-              
-       
+       <!-- <p style="color:red;" th:if="${#fields.hasErrors('isbn')}" th:errorclass="error" th:errors="*{isbn}"></p> -->
+       </div>
+       <div>      
+       <input type="number" th:field="*{quantity}"
+               class="form-control mb-4 col-4" placeholder="QUANTITY" >
+             
+       </div>
+       <div>
        <select name="authorId" class="form-control mb-4 col-4" >
               <option value="" disabled selected hidden>Choose Author Name</option> -->
               <option th:each="author: ${authors}" th:value="${author.id}" th:text="${author.author_name}" />
        </select>
-
+       </div>
+       <div>
        <select name="publisherId" class="form-control mb-4 col-4" >
               <option value="" disabled selected hidden>Choose Publisher Name</option> -->
               <option th:each="publisher: ${publishers}"  th:value="${publisher.id}" th:text="${publisher.publisher_name}" />
        </select>  
-       
+       </div>
        <div>
        <button type="submit" class="btn btn-info col-2">Save</button>
        </div>

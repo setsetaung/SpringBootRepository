@@ -4,7 +4,10 @@ import com.example.librarysystem.model.Author;
 import com.example.librarysystem.service.AuthorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class AuthorController {
     }
 
 
+
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("authorId") int theID, Model theModel) {
         Author theAuthor = authorService.findById(theID);
@@ -41,7 +45,10 @@ public class AuthorController {
         return "author-form";
     }
     @PostMapping("/save")
-    public String saveAuthor(@ModelAttribute("authors") Author theAuthor) {
+    public String saveAuthor(@Validated @ModelAttribute("authors") Author theAuthor, BindingResult result) {
+        if (result.hasErrors()) {
+            return "author-form";
+          }
         authorService.save(theAuthor);
         return "redirect:/author/list";
     }

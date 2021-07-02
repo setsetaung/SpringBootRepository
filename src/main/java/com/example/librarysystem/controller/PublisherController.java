@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +51,10 @@ public class PublisherController {
         return "publisher-form";
     }
     @PostMapping("/save")
-    public String savePublisher(@ModelAttribute("publishers") Publisher thePublisher) {
-
+    public String savePublisher(@Validated @ModelAttribute("publishers") Publisher thePublisher, BindingResult result) {
+        if (result.hasErrors()) {
+            return "publisher-form";
+          }
         publisherService.save(thePublisher);
 
         return "redirect:/publisher/list";

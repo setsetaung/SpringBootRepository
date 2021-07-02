@@ -10,6 +10,8 @@ import com.example.librarysystem.service.PublisherService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,12 +37,12 @@ public class BookController {
         return "list-books";
     }
     @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model theModel) {
-        Book theBook = new Book();
+    public String showFormForAdd(@ModelAttribute Book book, Model theModel) {
+        //Book theBook = new Book();
         List<Author> theAuthors = authorService.findAll();
         List<Publisher> thePublishers = publisherService.findAll();
 
-        theModel.addAttribute("books", theBook);
+        //theModel.addAttribute("books", theBook);
         theModel.addAttribute("authors", theAuthors);
         theModel.addAttribute("publishers", thePublishers);
         
@@ -63,12 +65,13 @@ public class BookController {
   
 
     @PostMapping("/save")
-    public String saveBook(@ModelAttribute("books") Book theBook, @RequestParam("authorId")int authorId, @RequestParam("publisherId")int publisherId) {
-      
-        
-        theBook.setAuthor(authorService.findById(authorId));
-        theBook.setPublisher(publisherService.findById(publisherId));
-        bookService.save(theBook);
+    public String saveBook(@Validated @ModelAttribute Book book, @RequestParam("authorId")int authorId, @RequestParam("publisherId")int publisherId,BindingResult result) {
+        if (result.hasErrors()) {
+            return "book-form";
+          }
+        book.setAuthor(authorService.findById(authorId));
+        book.setPublisher(publisherService.findById(publisherId));
+        bookService.save(book);
         return "redirect:/books/list";
     }
 

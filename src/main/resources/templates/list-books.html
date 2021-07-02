@@ -11,7 +11,7 @@
     <title>BOOKS LIST</title>
     <style>
         body {
-          background-image: url('/images/bgbook.jpg');
+          background-image: url('/images/bgbook.png');
           background-repeat: no-repeat;
           background-attachment: fixed;  
           background-size: cover;
@@ -43,6 +43,7 @@
         </div>
     </form>
         <hr>
+        <div class="table-responsive-sm">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
@@ -52,6 +53,7 @@
                 <th>Serial Name</th>
                 <th>Books description</th>
                 <th>ISBN</th>
+                <th>BOOK QUANTITY</th>
                 <th>Books Author</th>
                 <th>Books Publisher</th> 
                 <th>Action</th>
@@ -61,37 +63,43 @@
             <tbody>
             <tr th:each="tempBook : ${books}">
 
-                <td th:text="${tempBook.book_name}" style="color:white;"></td>
-                <td th:text="${tempBook.book_subname}" style="color:white;"></td>
-                <td th:text="${tempBook.serial_name}" style="color:white;"></td>
-                <td th:text="${tempBook.description}" style="color:white;"></td>
-                <td th:text="${tempBook.isbn}" style="color:white;"></td>
+                <td th:text="${tempBook.book_name}" ></td>
+                <td th:text="${tempBook.book_subname}" ></td>
+                <td th:text="${tempBook.serial_name}"></td>
+                <td th:text="${tempBook.description}">/td> </td>
+                <td th:text="${tempBook.isbn}" >/td>
+                <td th:text="${tempBook.quantity}" >/td>
                 
-                <td th:text="${tempBook.author.author_name}" style="color:white;"></td>
-                <td th:text="${tempBook.publisher.publisher_name}" style="color:white;"></td>
+                <td th:text="${tempBook.author.author_name}" ></td>
+                <td th:text="${tempBook.publisher.publisher_name}" ></td>
                 <td>
-                    <!-- <div sec:authorize="hasRole('USER')">
-                        <p style="color:white;">User Role Cannot be updated or deleted</p>
-                    </div> -->
-                    <!-- <div sec:authorize="hasRole('ADMIN')" -->
+                     <div sec:authorize="hasRole('USER')">
+                        <a th:href="@{/books/showFormForUpdate(bookId=${tempBook.id})}"
+                           class="btn btn-info btn-sm mb-1">
+                            Borrow
+                        </a>
+                    
+                    </div> 
+                     <div sec:authorize="hasRole('ADMIN')" >
                         <!-- Add "update" button/link -->
                         <a th:href="@{/books/showFormForUpdate(bookId=${tempBook.id})}"
                            class="btn btn-info btn-sm mb-1">
                             Update
                         </a>
-                    <!-- </div> -->
+                    </div> 
                     <!-- Add "delete" button/link -->
-                    <!-- <div sec:authorize="hasRole('ADMIN')"> -->
+                     <div sec:authorize="hasRole('ADMIN')"> 
                         <a th:href="@{/books/delete(bookId=${tempBook.id})}"
                            class="btn btn-danger btn-sm"
                            onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false">
                             Delete
                         </a>
-                    <!-- </div> -->
+                     </div> 
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
 </div>
 </body>
 </html>

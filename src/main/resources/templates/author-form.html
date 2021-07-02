@@ -23,17 +23,23 @@
 <body>
 <div th:insert="fragments/header :: header"></div>
 <div class="container">
-    <h3 style="color:red;">Author Directory</h3>
+    <h3>Author Directory</h3>
     <hr>
-    <p class="h4 mb-4" style="color:red;">Save Author</p>
+    <p class="h4 mb-4" >Save Author</p>
     <form action="#" th:action="@{/author/save}"
           th:object="${authors}" method="POST">
         <!-- Add hidden form field to handle update -->
+        <div>
         <input type="hidden" th:field="*{id}" />
+        </div>
+        <div>
         <input type="text" th:field="*{author_name}"
                class="form-control mb-4 col-4" placeholder="Author name">
+        <p style="color:red;" th:if="${#fields.hasErrors('author_name')}" th:errorclass="error" th:errors="*{author_name}"></p>
+        </div>
+        <div>
         <textarea rows="4" cols="50" class="form-control mb-4 col-4" placeholder="Description" th:field="*{description}"></textarea>
-           
+        </div>  
 
         <button type="submit" class="btn btn-info col-2">Save</button>
     </form>

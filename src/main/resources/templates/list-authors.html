@@ -12,7 +12,7 @@
     <title>AUTHORS LIST</title>
     <style>
         body {
-          background-image: url('/images/bgbook.jpg');
+          background-image: url('/images/bgbook.png');
           background-repeat: no-repeat;
           background-attachment: fixed;  
           background-size: cover;
@@ -42,11 +42,11 @@
         <tbody>
         <tr th:each="tempAuthor : ${authors}">
 
-            <td th:text="${tempAuthor.author_name}" style="color:white;"/>
-            <td th:text="${tempAuthor.description}" style="color:white;"/>
+            <td th:text="${tempAuthor.author_name}"/>
+            <td th:text="${tempAuthor.description}" />
             <td>
                 <div sec:authorize="hasRole('USER')">
-                <p>User Role Cannot be updated or deleted</p>
+                <p >User Role Cannot be updated or deleted</p>
                 </div>
                 <div sec:authorize="hasRole('ADMIN')"
                 <!-- Add "update" button/link -->

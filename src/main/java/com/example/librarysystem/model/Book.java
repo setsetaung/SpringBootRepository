@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "BOOK")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class Book {
@@ -16,16 +15,26 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     Integer id;
+
     @Column(name = "BOOK_NAME")
     String book_name;
+
     @Column(name = "BOOK_SUBNAME")
     String book_subname;
+
     @Column(name = "SERIAL_NAME")
     String serial_name;
+
     @Column(name = "DESCRIPTION")
     String description;
+
     @Column(name = "ISBN")
     String isbn;
+    
+    @Column(name = "QUANTITY")
+    Integer quantity;
+
+
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "AUTHOR_ID")
     Author author;
@@ -33,7 +42,6 @@ public class Book {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
-    private Integer integer;
 
     public Author getAuthor() {
         return author;
@@ -97,6 +105,13 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     
