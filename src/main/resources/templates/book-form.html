@@ -19,9 +19,9 @@
 <body>
 <div th:insert="fragments/header :: header"></div>
 <div class="container">
-    <h3 style="color:red;">Book Directory</h3>
+    <h3>Book Directory</h3>
     <hr>
-    <p class="h4 mb-4" style="color:red;">Add Book</p>
+    <p class="h4 mb-4" >Save Book</p>
     <form th:action="@{/books/save}"
           th:object="${book}" method="POST" novalidate>
         <!-- Add hidden form field to handle update -->
@@ -37,10 +37,11 @@
         <div>
         <input type="text" th:field="*{book_subname}"
                class="form-control mb-4 col-4" placeholder="Book subname">
+        <p style="color:red;"  th:errorclass="error" th:errors="*{book_subname}"></p>
        <div>
         <input type="text" th:field="*{serial_name}"
                class="form-control mb-4 col-4" placeholder="Serial Name">
-       <!-- <p style="color:red;" th:if="${#fields.hasErrors('serial_name')}" th:errorclass="error" th:errors="*{serial_name}"></p> -->
+       <p style="color:red;" th:if="${#fields.hasErrors('serial_name')}" th:errorclass="error" th:errors="*{serial_name}"></p>
        </div>
        <div>
        <textarea rows="4" cols="50" class="form-control mb-4 col-4" placeholder="Description" th:field="*{description}"></textarea>
@@ -48,7 +49,7 @@
        <div>
         <input type="text" th:field="*{isbn}"
                class="form-control mb-4 col-4" placeholder="ISBN">
-       <!-- <p style="color:red;" th:if="${#fields.hasErrors('isbn')}" th:errorclass="error" th:errors="*{isbn}"></p> -->
+        <p style="color:red;" th:if="${#fields.hasErrors('isbn')}" th:errorclass="error" th:errors="*{isbn}"></p>
        </div>
        <div>      
        <input type="number" th:field="*{quantity}"

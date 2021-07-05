@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -23,15 +22,18 @@ public class Book {
     @Column(name = "BOOK_NAME", nullable = false)
     private String book_name;
 
+    @NotBlank(message = "Book Subname Must Not Be Blank")
     @Column(name = "BOOK_SUBNAME")
     String book_subname;
 
+    @NotBlank(message = "Book Setial Name Must Not Be Blank")
     @Column(name = "SERIAL_NAME")
     String serial_name;
 
     @Column(name = "DESCRIPTION")
     String description;
 
+    @NotBlank(message = "Book ISBN Must Not Be Blank")
     @Column(name = "ISBN")
     String isbn;
     
