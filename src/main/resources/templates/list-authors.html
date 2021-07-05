@@ -51,14 +51,14 @@
                 <div sec:authorize="hasRole('ADMIN')"
                 <!-- Add "update" button/link -->
                 <a th:href="@{/author/showFormForUpdate(authorId=${tempAuthor.id})}"
-                   class="btn btn-info btn-sm">
+                   class="btn btn-info btn-sm mb-1">
                     Update
                 </a>
                 </div>
                 <div sec:authorize="hasRole('ADMIN')">
                 <!-- Add "delete" button/link -->
                 <a th:href="@{/author/delete(authorId=${tempAuthor.id})}"
-                   class="btn btn-danger btn-sm"
+                   class="btn btn-danger btn-sm mb-1"
                    onclick="if (!(confirm('Are you sure you want to delete this author?'))) return false">
                     Delete
                 </a>
@@ -68,6 +68,5 @@
         </tbody>
     </table>
 </div>
-
 </body>
 </html>

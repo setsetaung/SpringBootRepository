@@ -21,9 +21,9 @@
 <div class="container">
     <h3 style="color:red;">Book Directory</h3>
     <hr>
-    <p class="h4 mb-4" style="color:red;">Save Book</p>
-    <form action="#" th:action="@{/books/save}"
-          th:object="${book}" method="POST">
+    <p class="h4 mb-4" style="color:red;">Add Book</p>
+    <form th:action="@{/books/save}"
+          th:object="${book}" method="POST" novalidate>
         <!-- Add hidden form field to handle update -->
         <div>
         <input type="hidden" th:field="*{id}" />
@@ -31,7 +31,7 @@
         <div>
         <input type="text" th:field="*{book_name}"
                class="form-control mb-4 col-4" placeholder="Book name">
-               <!-- <p style="color:red;" th:if="${#fields.hasErrors('book_name')}" th:errorclass="error" th:errors="*{book_name}"></p> -->
+               <p style="color:red;"  th:errorclass="error" th:errors="*{book_name}"></p>
         </div>
 
         <div>
@@ -53,17 +53,16 @@
        <div>      
        <input type="number" th:field="*{quantity}"
                class="form-control mb-4 col-4" placeholder="QUANTITY" >
-             
+       <p style="color:red;" th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}"></p>  
        </div>
        <div>
        <select name="authorId" class="form-control mb-4 col-4" >
-              <option value="" disabled selected hidden>Choose Author Name</option> -->
+              <!-- <option value="" disabled selected hidden>Choose Author Name</option>  -->
               <option th:each="author: ${authors}" th:value="${author.id}" th:text="${author.author_name}" />
        </select>
        </div>
        <div>
        <select name="publisherId" class="form-control mb-4 col-4" >
-              <option value="" disabled selected hidden>Choose Publisher Name</option> -->
               <option th:each="publisher: ${publishers}"  th:value="${publisher.id}" th:text="${publisher.publisher_name}" />
        </select>  
        </div>

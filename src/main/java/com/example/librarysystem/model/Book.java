@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,8 +19,9 @@ public class Book {
     @Column(name = "ID")
     Integer id;
 
-    @Column(name = "BOOK_NAME")
-    String book_name;
+    @NotBlank(message = "Book Name Must Not Be Blank")
+    @Column(name = "BOOK_NAME", nullable = false)
+    private String book_name;
 
     @Column(name = "BOOK_SUBNAME")
     String book_subname;
@@ -31,8 +35,9 @@ public class Book {
     @Column(name = "ISBN")
     String isbn;
     
-    @Column(name = "QUANTITY")
-    Integer quantity;
+    @NotNull(message = "Quantity Must Not Be Blank")
+    @Column(name = "QUANTITY", nullable = false)
+    private Integer quantity;
 
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

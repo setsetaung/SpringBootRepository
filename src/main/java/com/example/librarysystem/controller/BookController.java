@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -62,10 +63,37 @@ public class BookController {
         return "bookupdate-form";
     }
 
+    @GetMapping("/borrow")
+    public String borrow(@RequestParam("bookId") int theID, RedirectAttributes attrs, Model theModel) {
+        
+        Book theBook = bookService.findById(theID);
+        Book book = new Book();
+        book.setId(theID);
+        book.setBook_name(theBook.getBook_name());
+        book.setBook_subname(theBook.getBook_subname());
+        book.setSerial_name(theBook.getSerial_name());
+        book.setDescription(theBook.getDescription());
+        book.setIsbn(theBook.getIsbn());
+        System.out.println("Book Quan"+theBook.getQuantity());
+        if(theBook.getQuantity()==0){
+            List<Book> theBooks = bookService.findAll();
+            theModel.addAttribute("books", theBooks);
+            attrs.addFlashAttribute("quantityzero", "Quantity is 0. Can not Borrow this Book");
+            return "redirect:/books/list";
+        }
+        book.setQuantity(theBook.getQuantity()-1);
+        book.setAuthor(theBook.getAuthor());
+        book.setPublisher(theBook.getPublisher());
+        bookService.save(book);
+        attrs.addFlashAttribute("success", "Well done! You successfully Borrowed <"+ book.getBook_name() +"> Book.");
+        return "redirect:/books/list";
+    }
+
   
 
     @PostMapping("/save")
-    public String saveBook(@Validated @ModelAttribute Book book, @RequestParam("authorId")int authorId, @RequestParam("publisherId")int publisherId,BindingResult result) {
+    public String saveBook(@Validated @ModelAttribute Book book,BindingResult result, @RequestParam("authorId")int authorId, @RequestParam("publisherId")int publisherId) {
+        
         if (result.hasErrors()) {
             return "book-form";
           }
